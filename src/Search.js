@@ -32,24 +32,45 @@ export class Search extends Component {
           */}
           <input type="text" ref={input => this.search = input} onChange={this.handleInputChange} placeholder="Search by title or author"/>
           <p>{this.state.query}</p>
-          { this.state.results.length > 1
-            ?
-            this.state.results.map((name, key) =>
-            <div key={key}>
-             <p>{this.state.results[key].title}</p>
-             <p>{this.state.results[key].authors}</p>
-             <p>{this.state.results[key].pageCount}</p>
-             <p>{this.state.results[key].imageLinks.thumbnail}</p>
-             <p>{this.state.results[key].averageRating}</p>
-             <p>{this.state.results[key].description}</p>
-            </div>
-            ) 
-            : null
-           }
         </div>
       </div>
       <div className="search-books-results">
-        <ol className="books-grid"></ol>
+        <ol className="books-grid">
+          { this.state.results.length > 1
+            ?
+            this.state.results.map((name, key) =>
+            <li key={key}>
+             <div className="book">
+                <div className="book-top">
+                  <div 
+                    className="book-cover" 
+                    style={{ 
+                      width: 128, 
+                      height: 188, 
+                      backgroundImage: `url(${this.state.results[key].imageLinks.thumbnail})` }}
+                  >
+                  </div>
+                  <div className="book-shelf-changer">
+                    <select>
+                      <option value="move" disabled>Move to...</option>
+                      <option value="currentlyReading">Currently Reading</option>
+                      <option value="wantToRead">Want to Read</option>
+                      <option value="read">Read</option>
+                      <option value="none">None</option>
+                    </select>
+                  </div>
+                </div>
+                <div className="book-title">{this.state.results[key].title}</div>
+                <div className="book-authors">{this.state.results[key].authors}</div>
+                <div className="book-title">Rating: {this.state.results[key].averageRating}</div>
+                <div className="book-authors">Pages: {this.state.results[key].pageCount}</div>
+                <div className="book-authors">{this.state.results[key].description}</div>
+              </div>
+            </li>
+            ) 
+            : null
+          }
+        </ol>
       </div>
     </div>
    )
