@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import { Link } from 'react-router-dom'
 import * as BooksAPI from './BooksAPI'
 
 export default class Search extends Component {
@@ -20,7 +21,7 @@ export default class Search extends Component {
    return (
     <div className="search-books">
       <div className="search-books-bar">
-        <a className="close-search" onClick={() => this.setState({ showSearchPage: false })}>Close</a>
+        <Link to="/"><a className="close-search">Close</a></Link>
         <div className="search-books-input-wrapper">
           {/*
             NOTES: The search from BooksAPI is limited to a particular set of search terms.
@@ -47,7 +48,8 @@ export default class Search extends Component {
                     style={{ 
                       width: 128, 
                       height: 188, 
-                      backgroundImage: `url(${this.state.results[key].imageLinks.thumbnail})` }}
+                      backgroundImage: `url(${this.state.results[key].imageLinks ? this.state.results[key].imageLinks.thumbnail : 
+                        'http://phillyjamz953fm.com/wp-content/plugins/penci-portfolio//images/no-thumbnail.jpg'})` }}
                   >
                   </div>
                   <div className="book-shelf-changer">
