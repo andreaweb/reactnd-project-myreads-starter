@@ -1,5 +1,5 @@
 import React from 'react'
-// import * as BooksAPI from './BooksAPI'
+import { Search } from './Search'
 import './App.css'
 
 class BooksApp extends React.Component {
@@ -11,6 +11,10 @@ class BooksApp extends React.Component {
      * pages, as well as provide a good URL they can bookmark and share.
      */
     bookShelves: ['Currently Reading', 'Want To Read', 'Read'], //if the books are not gonna be here, this should be props
+    books: [{ width: 128, 
+              height: 193, 
+              cover: 'url("http://books.google.com/books/content?id=PGR2AwAAQBAJ&printsec=frontcover&img=1&zoom=1&imgtk=AFLRE73-GnPVEyb7MOCxDzOYF1PTQRuf6nCss9LMNOSWBpxBrz8Pm2_mFtWMMg_Y1dx92HT7cUoQBeSWjs3oEztBVhUeDFQX6-tWlWz1-feexS0mlJPjotcwFqAg6hBYDXuK_bkyHD-y&source=gbs_api")' 
+    }],
     showSearchPage: false
   }
 
@@ -18,26 +22,7 @@ class BooksApp extends React.Component {
     return (
       <div className="app">
         {this.state.showSearchPage ? (
-          <div className="search-books">
-            <div className="search-books-bar">
-              <a className="close-search" onClick={() => this.setState({ showSearchPage: false })}>Close</a>
-              <div className="search-books-input-wrapper">
-                {/*
-                  NOTES: The search from BooksAPI is limited to a particular set of search terms.
-                  You can find these search terms here:
-                  https://github.com/udacity/reactnd-project-myreads-starter/blob/master/SEARCH_TERMS.md
-
-                  However, remember that the BooksAPI.search method DOES search by title or author. So, don't worry if
-                  you don't find a specific author or title. Every search is limited by search terms.
-                */}
-                <input type="text" placeholder="Search by title or author"/>
-
-              </div>
-            </div>
-            <div className="search-books-results">
-              <ol className="books-grid"></ol>
-            </div>
-          </div>
+          <Search/>
         ) : (
           <div className="list-books">
             <div className="list-books-title">
@@ -58,9 +43,9 @@ class BooksApp extends React.Component {
                               <div 
                                 className="book-cover" 
                                 style={{ 
-                                  width: 128, 
-                                  height: 193, 
-                                  backgroundImage: 'url("http://books.google.com/books/content?id=PGR2AwAAQBAJ&printsec=frontcover&img=1&zoom=1&imgtk=AFLRE73-GnPVEyb7MOCxDzOYF1PTQRuf6nCss9LMNOSWBpxBrz8Pm2_mFtWMMg_Y1dx92HT7cUoQBeSWjs3oEztBVhUeDFQX6-tWlWz1-feexS0mlJPjotcwFqAg6hBYDXuK_bkyHD-y&source=gbs_api")' }}
+                                  width: this.state.books[0].width, 
+                                  height: this.state.books[0].height, 
+                                  backgroundImage: this.state.books[0].cover}}
                               >
                               </div>
                               <div className="book-shelf-changer">
