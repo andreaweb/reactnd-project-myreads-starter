@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import * as BooksAPI from './BooksAPI'
 
-export class Search extends Component {
+export default class Search extends Component {
  state = {
    query: '',
    results: []
@@ -36,7 +36,7 @@ export class Search extends Component {
       </div>
       <div className="search-books-results">
         <ol className="books-grid">
-          { this.state.results.length > 1
+          { this.state.results && this.state.results.length > 1
             ?
             this.state.results.map((name, key) =>
             <li key={key}>
