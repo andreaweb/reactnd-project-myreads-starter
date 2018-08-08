@@ -5,19 +5,12 @@ import * as BooksAPI from './BooksAPI'
 
 export default class BookShelves extends React.Component {
   state = {
-    /**
-     * TODO: Instead of using this state variable to keep track of which page
-     * we're on, use the URL in the browser's address bar. This will ensure that
-     * users can use the browser's back and forward buttons to navigate between
-     * pages, as well as provide a good URL they can bookmark and share.
-     */
     bookShelves: ['Currently Reading', 'Want To Read', 'Read'], //if the books are not gonna be here, this should be props
     books: ''
   }
 
   componentDidMount(){
     BooksAPI.getAll().then((books) => this.setState({books: books}))
-    console.log(this.state.books)
   }
 
   render() {
@@ -34,13 +27,16 @@ export default class BookShelves extends React.Component {
                 <h2 className="bookshelf-title">{this.state.bookShelves[key]}</h2>
                 <div className="bookshelf-books">
                   <ol className="books-grid">
-                  { /* loop through every book in the current bookshelf*/}
+                  { this.state.books && this.state.books.length > 1
+                    ?/* loop through every book in the current bookshelf*/
+                    this.state.books.map((name, key) =>
                     <li>
                       <div className="book">
                         <div className="book-top">
                           <div 
                             className="book-cover" 
-                            
+                            style={{width: 128, height: 188, backgroundImage: `url(${this.state.books[key].imageLinks ? this.state.books[key].imageLinks.thumbnail : 
+                              'http://phillyjamz953fm.com/wp-content/plugins/penci-portfolio//images/no-thumbnail.jpg'})` }}
                           >
                           </div>
                           <div className="book-shelf-changer">
@@ -53,13 +49,18 @@ export default class BookShelves extends React.Component {
                             </select>
                           </div>
                         </div>
-                        <div className="book-title">To Kill a Mockingbird</div>
-                        <div className="book-authors">Harper Lee</div>
+                        <div className="book-title">{this.state.books[key].title}</div>
+                        <div className="book-authors">{this.state.books[key].authors}</div>
+                        <div className="book-title">Rating: {this.state.books[key].averageRating}</div>
+                        <div className="book-authors">Pages: {this.state.books[key].pageCount}</div>
+                        <div className="book-authors">{this.state.books[key].description}</div>
                       </div>
                     </li>
-                  </ol>
+              )
+              : null }
+                </ol>
                 </div>
-              </div>
+              </div> 
             )
            }
             
