@@ -1,6 +1,7 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 import './App.css'
+import * as BooksAPI from './BooksAPI'
 
 export default class BookShelves extends React.Component {
   state = {
@@ -11,10 +12,12 @@ export default class BookShelves extends React.Component {
      * pages, as well as provide a good URL they can bookmark and share.
      */
     bookShelves: ['Currently Reading', 'Want To Read', 'Read'], //if the books are not gonna be here, this should be props
-    books: [{ width: 128, 
-              height: 193, 
-              cover: 'url("http://books.google.com/books/content?id=PGR2AwAAQBAJ&printsec=frontcover&img=1&zoom=1&imgtk=AFLRE73-GnPVEyb7MOCxDzOYF1PTQRuf6nCss9LMNOSWBpxBrz8Pm2_mFtWMMg_Y1dx92HT7cUoQBeSWjs3oEztBVhUeDFQX6-tWlWz1-feexS0mlJPjotcwFqAg6hBYDXuK_bkyHD-y&source=gbs_api")' 
-    }]
+    books: ''
+  }
+
+  componentDidMount(){
+    BooksAPI.getAll().then((books) => this.setState({books: books}))
+    console.log(this.state.books)
   }
 
   render() {
@@ -37,10 +40,7 @@ export default class BookShelves extends React.Component {
                         <div className="book-top">
                           <div 
                             className="book-cover" 
-                            style={{ 
-                              width: this.state.books[0].width, 
-                              height: this.state.books[0].height, 
-                              backgroundImage: this.state.books[0].cover}}
+                            
                           >
                           </div>
                           <div className="book-shelf-changer">
@@ -67,7 +67,7 @@ export default class BookShelves extends React.Component {
         </div>
         <div className="open-search">
           <Link to="/search">
-            <a>Add a book</a>
+            <span>Add a book</span>
           </Link>
         </div>
       </div>

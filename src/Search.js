@@ -9,12 +9,10 @@ export default class Search extends Component {
  }
 
  handleInputChange = () => {
-  console.log(this.search.value)
   this.setState({
     query: this.search.value,
   })
   BooksAPI.search(this.search.value).then((results) => this.setState({results: results}))
-  console.log(this.state.results)
  }
 
  render() {
