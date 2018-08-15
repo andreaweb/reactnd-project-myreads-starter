@@ -18,13 +18,8 @@ export default class BookShelves extends React.Component {
     BooksAPI.getAll().then((books) => this.setState({books: books}))
   }
 
-  handleShelfChange = (event) => {
-
-    console.log(event.target.value) //can't read book value here, will need another function
-  }
-
-  changeBookShelf = (book) => {
-    BooksAPI.update(book,'read').then((shelves) => this.getBooksData()) //harcode update of book shelf
+  handleShelfChange = (book, event) => { //only reads the shelf's updated value
+    BooksAPI.update(book,event.target.value).then((shelves) => this.getBooksData())
   }
 
   render() {
@@ -42,7 +37,7 @@ export default class BookShelves extends React.Component {
                 <div className="bookshelf-books">
                   <ol className="books-grid">
                   { this.state.books && this.state.books.length > 1
-                    ?/* loop through every book in the current bookshelf*/
+                    ?
                     this.state.books.filter(book => book.shelf === this.state.bookshelvesValues[key])
                     .map(
                       (book, key) => (
@@ -56,7 +51,10 @@ export default class BookShelves extends React.Component {
                               >
                               </div>
                               <div className="book-shelf-changer">
-                                <select onChange={() => this.changeBookShelf(book)} value={book.shelf}>
+                                <select 
+                                  //onChange={(book,value) => this.changeBookShelf(book, this.value)} 
+                                  onChange={(event) => this.handleShelfChange(book, event)}
+                                  value={book.shelf}>
                                   <option value="move" disabled>Move to...</option>
                                   <option value="currentlyReading">Currently Reading</option>
                                   <option value="wantToRead">Want to Read</option>
@@ -69,7 +67,6 @@ export default class BookShelves extends React.Component {
                             <div className="book-authors">{book.authors}</div>
                             <div className="book-title">Rating: {book.averageRating}</div>
                             <div className="book-authors">Pages: {book.pageCount}</div>
-                            <div className="book-title">{book.description}</div>
                           </div>
                         </li> 
                       )
