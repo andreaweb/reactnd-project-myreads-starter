@@ -5,7 +5,8 @@ import * as BooksAPI from './BooksAPI'
 
 export default class BookShelves extends React.Component {
   state = {
-    bookShelves: ['Currently Reading', 'Want To Read', 'Read'], //if the books are not gonna be here, this should be props
+    bookshelvesNames: ['Currently Reading', 'Want To Read', 'Read'],
+
     books: ''
   }
 
@@ -22,9 +23,9 @@ export default class BookShelves extends React.Component {
         <div className="list-books-content">
           <div>
            {  
-            this.state.bookShelves.map((name,key) =>
+            this.state.bookshelvesNames.map((name,key) =>
               <div className="bookshelf" key={key}>
-                <h2 className="bookshelf-title">{this.state.bookShelves[key]}</h2>
+                <h2 className="bookshelf-title">{this.state.bookshelvesNames[key]}</h2>
                 <div className="bookshelf-books">
                   <ol className="books-grid">
                   { this.state.books && this.state.books.length > 1
@@ -53,7 +54,6 @@ export default class BookShelves extends React.Component {
                         <div className="book-authors">{this.state.books[key].authors}</div>
                         <div className="book-title">Rating: {this.state.books[key].averageRating}</div>
                         <div className="book-authors">Pages: {this.state.books[key].pageCount}</div>
-                        <div className="book-authors">{this.state.books[key].description}</div>
                       </div>
                     </li>
               )
