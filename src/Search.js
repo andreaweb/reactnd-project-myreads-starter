@@ -4,37 +4,38 @@ import * as BooksAPI from './BooksAPI'
 
 export default class Search extends Component {
  state = {
-   query: '',
-   results: []
+   query: '', /*search value that will change on input*/
+   results: [] /*search results, depending on query*/
  }
 
- handleInputChange = () => {
+ handleInputChange = () => {/*identifies every letter typed or deleted in input...*/
   this.setState({
-    query: this.search.value,
+    query: this.search.value,/*...and make it the query*/
   })
+  /*searches books API according to query*/
   BooksAPI.search(this.search.value).then((results) => this.setState({results: results}))
  }
 
+ /*update book in API when user selects a shelf*/
  handleShelfChange = (book, event) => {
-    console.log(book)
     BooksAPI.update(book,event.target.value)
   }
 
  render() {
    return (
     <div className="search-books">
-      <div className="search-books-bar">
+      <div className="search-books-bar">{/* 'header', where the user will type what he's searching for + link to go back to main page*/}
         <Link to="/"><span className="close-search">Close</span></Link>
         <div className="search-books-input-wrapper">
           <input type="text" ref={input => this.search = input} onChange={this.handleInputChange} placeholder="Search by title or author"/>
           <p>{this.state.query}</p>
         </div>
       </div>
-      <div className="search-books-results">
+      <div className="search-books-results">{/* displays books according to user query*/}
         <ol className="books-grid">
           { this.state.results && this.state.results.length > 1
             ?
-            this.state.results.map((name, key) =>
+            this.state.results.map((name, key) => /*loop results*/
             <li key={key}>
              <div className="book">
                 <div className="book-top">

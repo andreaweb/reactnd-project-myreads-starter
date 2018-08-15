@@ -4,21 +4,21 @@ import './App.css'
 import * as BooksAPI from './BooksAPI'
 
 export default class BookShelves extends React.Component {
-  state = {
+  state = { /*bookshelves in separated arrays to make comparison easier*/
     bookshelvesNames: ['Currently Reading', 'Want To Read', 'Read'],
     bookshelvesValues: ['currentlyReading', 'wantToRead', 'read'],
-    books: ''
+    books: '' /*will be populated with API data*/
   }
-
+  
+  getBooksData(){ /*separate function so it can be used both in componentDidMount and in handleShelfChange*/
+    BooksAPI.getAll().then((books) => this.setState({books: books}))
+  }
+  
   componentDidMount(){
     this.getBooksData();
   }
 
-  getBooksData(){
-    BooksAPI.getAll().then((books) => this.setState({books: books}))
-  }
-
-  handleShelfChange = (book, event) => { //only reads the shelf's updated value
+  handleShelfChange = (book, event) => { /* updates book's shelf when there's a change in selected option */
     BooksAPI.update(book,event.target.value).then((shelves) => this.getBooksData())
   }
 
@@ -31,15 +31,15 @@ export default class BookShelves extends React.Component {
         <div className="list-books-content">
           <div>
            {  
-            this.state.bookshelvesValues.map((name,key) =>
+            this.state.bookshelvesValues.map((name,key) => /*loops bookshelvesValues array*/
               <div className="bookshelf" key={key}>
-                <h2 className="bookshelf-title">{this.state.bookshelvesNames[key]}</h2>
+                <h2 className="bookshelf-title">{this.state.bookshelvesNames[key]}</h2>{/*uses bookshelvesNames for shelf's title*/}
                 <div className="bookshelf-books">
                   <ol className="books-grid">
                   { this.state.books && this.state.books.length > 1
                     ?
-                    this.state.books.filter(book => book.shelf === this.state.bookshelvesValues[key])
-                    .map(
+                    this.state.books.filter(book => book.shelf === this.state.bookshelvesValues[key])/*checks if current book belongs to current shelf*/
+                    .map(/*if so, display book*/
                       (book, key) => (
                         <li key={key}>
                           <div className="book">
@@ -52,7 +52,6 @@ export default class BookShelves extends React.Component {
                               </div>
                               <div className="book-shelf-changer">
                                 <select 
-                                  //onChange={(book,value) => this.changeBookShelf(book, this.value)} 
                                   onChange={(event) => this.handleShelfChange(book, event)}
                                   value={book.shelf}>
                                   <option value="move" disabled>Move to...</option>
