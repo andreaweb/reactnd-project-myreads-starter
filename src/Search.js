@@ -15,6 +15,11 @@ export default class Search extends Component {
   BooksAPI.search(this.search.value).then((results) => this.setState({results: results}))
  }
 
+ handleShelfChange = (book, event) => {
+    console.log(book)
+    BooksAPI.update(book,event.target.value)
+  }
+
  render() {
    return (
     <div className="search-books">
@@ -43,8 +48,8 @@ export default class Search extends Component {
                   >
                   </div>
                   <div className="book-shelf-changer">
-                    <select>
-                      <option value="move" disabled>Move to...</option>
+                    <select value={null} onChange={(event) => this.handleShelfChange(this.state.results[key], event)}>
+                      <option value="move" disabled selected>Move to...</option>
                       <option value="currentlyReading">Currently Reading</option>
                       <option value="wantToRead">Want to Read</option>
                       <option value="read">Read</option>
@@ -56,7 +61,6 @@ export default class Search extends Component {
                 <div className="book-authors">{this.state.results[key].authors}</div>
                 <div className="book-title">Rating: {this.state.results[key].averageRating}</div>
                 <div className="book-authors">Pages: {this.state.results[key].pageCount}</div>
-                <div className="book-authors">{this.state.results[key].description}</div>
               </div>
             </li>
             ) 
