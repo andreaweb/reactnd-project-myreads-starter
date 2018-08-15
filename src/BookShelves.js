@@ -64,7 +64,7 @@ export default class BookShelves extends React.Component {
                               </div>
                             </div>
                             <div className="book-title">{book.title}</div>
-                            <div className="book-authors">{book.authors}</div>
+                            <div className="book-authors">{book.authors.join(', ')}</div>
                             <div className="book-title">Rating: {book.averageRating}</div>
                             <div className="book-authors">Pages: {book.pageCount}</div>
                           </div>
