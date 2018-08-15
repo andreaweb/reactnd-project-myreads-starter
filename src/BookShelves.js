@@ -14,6 +14,10 @@ export default class BookShelves extends React.Component {
     BooksAPI.getAll().then((books) => this.setState({books: books}))
   }
 
+  handleShelfChange = (event) => {
+    console.log(event.target.value) //can't read book value here, will need another function
+  }
+
   render() {
     return (
       <div className="list-books">
@@ -43,7 +47,7 @@ export default class BookShelves extends React.Component {
                               >
                               </div>
                               <div className="book-shelf-changer">
-                                <select>
+                                <select onChange={this.handleShelfChange} value={book.shelf}>
                                   <option value="move" disabled>Move to...</option>
                                   <option value="currentlyReading">Currently Reading</option>
                                   <option value="wantToRead">Want to Read</option>
