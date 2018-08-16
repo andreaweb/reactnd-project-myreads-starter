@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
 import * as BooksAPI from './BooksAPI'
+import { Books } from './Books'
 
 export default class Search extends Component {
  state = {
@@ -28,11 +29,6 @@ export default class Search extends Component {
     }
   })
  }
-
- /*update book in API when user selects a shelf*/
- handleShelfChange = (book, event) => {
-    BooksAPI.update(book,event.target.value)
-  }
 
  render() {
    return (
