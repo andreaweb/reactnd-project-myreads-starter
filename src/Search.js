@@ -12,8 +12,21 @@ export default class Search extends Component {
   this.setState({
     query: this.search.value,/*...and make it the query*/
   })
-  /*searches books API according to query*/
+  /*searches books API according to query
   BooksAPI.search(this.search.value).then((results) => this.setState({results: results}))
+*/
+  BooksAPI.search(this.state.query,30).then((books) => {
+    if(!!books){
+      if(books.length>0){
+        const results = books.map((book) => {
+          const existingBook = this.props.books.find((b) => b.id === book.id)
+          book.shelf = !!existingBook ? existingBook.shelf : 'none'
+          return book
+        });
+        this.setState({ results })
+      }  
+    }
+  })
  }
 
  /*update book in API when user selects a shelf*/
