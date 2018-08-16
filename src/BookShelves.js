@@ -18,9 +18,7 @@ export default class BookShelves extends React.Component {
               <div className="bookshelf" key={key}>
                 <h2 className="bookshelf-title">{this.props.bookshelvesNames[key]}</h2>{/*uses bookshelvesNames for shelf's title*/}
                 <div className="bookshelf-books">
-                  <ol className="books-grid">
-                  <Books />
-                  </ol>
+                    <Books index={key}/>
                 </div>
               </div> 
             )
