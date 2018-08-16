@@ -11,7 +11,7 @@ export default class BookShelves extends React.Component {
   }
   
   getBooksData(){ /*separate function so it can be used both in componentDidMount and in handleShelfChange*/
-    BooksAPI.getAll().then((books) => this.setState({books: books}))
+    BooksAPI.getAll().then((books) => this.setState({books}))
   }
   
   componentDidMount(){
