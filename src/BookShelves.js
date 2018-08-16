@@ -18,8 +18,14 @@ export default class BookShelves extends React.Component {
     this.getBooksData();
   }
 
-  handleShelfChange = (book, event) => { /* updates book's shelf when there's a change in selected option */
-    BooksAPI.update(book,event.target.value).then((shelves) => this.getBooksData())
+  handleShelfChange = (book, event) => { 
+    let shelf = event.target.value;
+    BooksAPI.update(book, shelf).then(() => {
+      book.shelf = shelf        /* updates book's shelf when there's a change in selected option */
+      this.setState(state => ({
+        books: state.books.filter(b => b.id !== book.id).concat(book) /*adds new book to shelf*/
+      }))     
+    })
   }
 
   render() {
