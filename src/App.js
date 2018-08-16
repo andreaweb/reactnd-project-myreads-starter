@@ -20,22 +20,14 @@ export default class App extends React.Component {
     this.getBooksData();
   }
 
-  handleShelfChange = (book, event) => { 
-    let shelf = event.target.value;
-    BooksAPI.update(book, shelf).then(() => {
-      book.shelf = shelf;        /* updates book's shelf when there's a change in selected option */
-      this.setState(state => ({
-        books: state.books.filter(b => b.id !== book.id).concat(book) /*adds new book to shelf*/
-      }))     
-    })
-  }
+  
 
   render() {
     return (
       <div className="app">
         <Switch>{/*will display BookShelves.js or Search.js according to path in browser... this will be changed through Link in components themselves*/}
           <Route exact path='/' render={()=><BookShelves {...this.state}/>} /> {/**/}
-          <Route path='/search' render={()=><Search {...this.state} />} /> {/* I cannot use this because Bookshelf has to be parent to Search*/}
+          <Route path='/search' render={()=><Search {...this.state} />} /> 
         </Switch>
       </div>
     )

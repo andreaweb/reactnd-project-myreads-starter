@@ -1,9 +1,18 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 import './App.css'
+import * as BooksAPI from './BooksAPI'
 
 export default class BookShelves extends React.Component {
-
+  handleShelfChange = (book, event) => { 
+    let shelf = event.target.value;
+    BooksAPI.update(book, shelf).then(() => {
+      book.shelf = shelf;        /* updates book's shelf when there's a change in selected option */
+      this.setState(state => ({
+        books: this.props.books.filter(b => b.id !== book.id).concat(book) /*adds new book to shelf*/
+      }))     
+    })
+  }
 
   render() {
     return (

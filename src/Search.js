@@ -62,8 +62,8 @@ export default class Search extends Component {
                   >
                   </div>
                   <div className="book-shelf-changer">
-                    <select value={null} onChange={(event) => this.handleShelfChange(this.state.results[key], event)}>
-                      <option value="move" disabled selected>Move to...</option>
+                    <select value={this.state.results[key].shelf} onChange={(event) => this.handleShelfChange(this.state.results[key], event)}>
+                      <option value="move" disabled>Move to...</option>
                       <option value="currentlyReading">Currently Reading</option>
                       <option value="wantToRead">Want to Read</option>
                       <option value="read">Read</option>
