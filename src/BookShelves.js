@@ -7,19 +7,7 @@ import * as BooksAPI from './BooksAPI'
 export default class BookShelves extends React.Component {
   constructor(props){
     super(props);
-    this.state = { /*bookshelves in separated arrays to make comparison easier*/
-      bookshelvesNames: ['Currently Reading', 'Want To Read', 'Read'],
-      bookshelvesValues: ['currentlyReading', 'wantToRead', 'read'],
-      books: '' /*will be populated with API data*/
-    }
-  }
-
-  getBooksData(){
-    BooksAPI.getAll().then((books) => this.setState({books}))
-  }
-  
-  componentDidMount(){
-    this.getBooksData();
+    console.log(props);
   }
 
   render() {
@@ -35,7 +23,7 @@ export default class BookShelves extends React.Component {
               <div className="bookshelf" key={key}>
                 <h2 className="bookshelf-title">{this.props.bookshelvesNames[key]}</h2>{/*uses bookshelvesNames for shelf's title*/}
                 <div className="bookshelf-books">
-                  <Books index={key} {...this.state} />
+                  <Books index={key} {...this.props} onUpdate={this.props.onUpdate}/>
                 </div>
               </div> 
             )

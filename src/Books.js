@@ -6,10 +6,12 @@ import * as BooksAPI from './BooksAPI'
 export class Books extends React.Component {
 	constructor(props){
 		super(props);
-		this.state = { arr: []}
+		console.log("bokos"+props)
+		this.state = { arr: this.books}
 	}
 
 	componentWillReceiveProps(nextProps) {
+		console.log(nextProps)
 		if(nextProps){
 			if(this.props.index > -1){
 				this.setState({arr: nextProps.books.filter(book => book.shelf === this.props.bookshelvesValues[this.props.index])})
@@ -19,21 +21,11 @@ export class Books extends React.Component {
 		}	
 	}
 
-	handleShelfChange(event, book) { 
-	    //console.log(book.id, event.target.value)
-	    let shelf = event.target.value;
-	    
-	    BooksAPI.update(book, shelf).then((results) => {
-	      book.shelf = shelf;   /* updates book's shelf when there's a change in selected option */
-	      this.setState({arr:this.state.arr});
-	    })
-	}
-
 	render() {
   		return  (
 			<ol className="books-grid">
 				{ 	
-				this.props.books && this.props.books.length > 1
+				this.props.books && this.props.books.length > 1 && this.state.arr
 	            ?
 		           this.state.arr.map(
 		              (book, key) => (
@@ -48,7 +40,7 @@ export class Books extends React.Component {
 		                      </div>
 		                      <div className="book-shelf-changer">
 		                        <select 
-		                          onChange={(event) => this.handleShelfChange(event, book)}
+		                          onChange={(event) => this.props.onUpdate(event, book)}
 		                          value={book.shelf}>
 		                          <option value="move" disabled>Move to...</option>
 		                          <option value="currentlyReading">Currently Reading</option>
