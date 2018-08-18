@@ -5,6 +5,11 @@ import Search from './Search'
 import * as BooksAPI from './BooksAPI'
 import './App.css'
 
+if (process.env.NODE_ENV !== 'production') {
+  const {whyDidYouUpdate} = require('why-did-you-update');
+  whyDidYouUpdate(React);
+}
+
 export default class App extends React.Component {
   state = { /*bookshelves in separated arrays to make comparison easier*/
     bookshelvesNames: ['Currently Reading', 'Want To Read', 'Read'],
@@ -12,7 +17,7 @@ export default class App extends React.Component {
     books: ''
   }
 
-  getBooksData(){
+  getBooksData = () =>{
     BooksAPI.getAll().then((books) => this.setState({books}))
   }
   
@@ -21,13 +26,10 @@ export default class App extends React.Component {
   }
 
   handleShelfChange(event, book) { 
-      //console.log(book.id, event.target.value)
-      let shelf = event.target.value;
-      
+      let shelf = event.target.value;  
       BooksAPI.update(book, shelf).then((results) => {
         book.shelf = shelf;   /* updates book's shelf when there's a change in selected option */
         this.setState({books: this.state.books});
-        console.log('hsc')
       })
   }
 
@@ -36,16 +38,16 @@ export default class App extends React.Component {
       <div className="app">
         <Switch>{/*will display BookShelves.js or Search.js according to path in browser... this will be changed through Link in components themselves*/}
           <Route 
-            exact 
-            path='/' 
-            render={()=>
-              <BookShelves {...this.state} onLoad={this.getBooksData()} onUpdate={(event, book)=>this.handleShelfChange(event,book)} />
+            path='/'
+            exact
+            render={(state)=>
+              <BookShelves {...this.state} onShelfChange={(event, book)=>this.handleShelfChange(event,book)} />
             } 
           />
           <Route 
             path='/search' 
-            render={()=>
-              <Search {...this.state} onUpdate={(event, book)=>this.handleShelfChange(event,book)}/>
+            render={(state)=>
+              <Search {...this.state} onShelfChange={(event, book)=>this.handleShelfChange(event,book)} getBookshelves={this.getBooksData} />
             } 
           /> 
         </Switch>

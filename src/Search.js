@@ -18,7 +18,7 @@ export default class Search extends Component {
     if(!!books){
       if(books.length>0){
         const results = books.map((book) => {
-          const existingBook = this.props.books.find((b) => b.id === book.id)
+          const existingBook = this.props.books.find((b) => b.id === book.id)/*existing book has its own shelf*/
           book.shelf = !!existingBook ? existingBook.shelf : 'none'
           return book
         });
@@ -32,14 +32,14 @@ export default class Search extends Component {
    return (
     <div className="search-books">
       <div className="search-books-bar">{/* 'header', where the user will type what he's searching for + link to go back to main page*/}
-        <Link to="/"><span className="close-search">Close</span></Link>
+        <Link to="/" onClick={this.props.getBookshelves}><span className="close-search">Close</span></Link>
         <div className="search-books-input-wrapper">
           <input type="text" ref={input => this.search = input} onChange={this.handleInputChange} placeholder="Search by title or author"/>
           <p>{this.state.query}</p>
         </div>
       </div>
       <div className="search-books-results">{/* displays books according to user query*/}
-        <Books {...this.state} onUpdate={this.props.onUpdate}/>
+        <Books {...this.state} onShelfChange={this.props.onShelfChange}/>
       </div>
     </div>
    )
