@@ -51,9 +51,7 @@ export default class BookShelves extends React.Component {
               <div className="bookshelf" key={key}>
                 <h2 className="bookshelf-title">{this.props.bookshelvesNames[key]}</h2>{/*uses bookshelvesNames for shelf's title*/}
                 <div className="bookshelf-books">
-                  <ol className="books-grid">
-                    <Books index={key} {...this.state} onUpdate={(event, book) => this.handleShelfChange(event, book)} />
-                  </ol>
+                  <Books index={key} {...this.state} onUpdate={(event, book) => this.handleShelfChange(event, book)} />
                 </div>
               </div> 
             )
