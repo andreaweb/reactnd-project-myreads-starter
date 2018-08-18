@@ -5,6 +5,39 @@ import { Books } from './Books'
 import * as BooksAPI from './BooksAPI'
 
 export default class BookShelves extends React.Component {
+  constructor(props){
+    super(props);
+    this.state = { /*bookshelves in separated arrays to make comparison easier*/
+      bookshelvesNames: ['Currently Reading', 'Want To Read', 'Read'],
+      bookshelvesValues: ['currentlyReading', 'wantToRead', 'read'],
+      books: '' /*will be populated with API data*/
+    }
+  }
+
+  getBooksData(){
+    BooksAPI.getAll().then((books) => this.setState({books}))
+  }
+  
+  componentDidMount(){
+    this.getBooksData();
+  }
+
+  handleShelfChange(event, book) { 
+    //console.log(book.id, event.target.value)
+    let shelf = event.target.value;
+    
+    BooksAPI.update(book, shelf).then((results) => {
+      book.shelf = shelf;   /* updates book's shelf when there's a change in selected option */
+      //this.getBooksData(); //not even this works anymore
+      this.setState({books:this.state.books})
+      //this.setState({books: this.state.books}, console.log(state, this.state.books))
+      //removes the book
+      /*this.setState(state => ({   
+        books: this.state.books.filter(b => b.id !== book.id).concat(book) 
+      }))  */   
+    })
+  }
+
   render() {
     return (
       <div className="list-books">
@@ -18,7 +51,9 @@ export default class BookShelves extends React.Component {
               <div className="bookshelf" key={key}>
                 <h2 className="bookshelf-title">{this.props.bookshelvesNames[key]}</h2>{/*uses bookshelvesNames for shelf's title*/}
                 <div className="bookshelf-books">
-                    <Books index={key}/>
+                  <ol className="books-grid">
+                    <Books index={key} {...this.state} onUpdate={(event, book) => this.handleShelfChange(event, book)} />
+                  </ol>
                 </div>
               </div> 
             )
