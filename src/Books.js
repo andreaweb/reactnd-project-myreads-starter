@@ -8,20 +8,22 @@ export class Books extends React.Component {
 		super(props);
 		this.state = { arr: []}
 	}
+
 	componentWillReceiveProps(nextProps) {
-		console.log(nextProps);
-	  this.setState({ arr: nextProps.books });  
-	}
-	componentDidMount(){
-		if(this.props.books){
-			if(this.props.index){
-				console.log(this.props.books)
-				this.setState({arr: this.props.books.filter(book => book.shelf === this.props.bookshelvesValues[this.props.index])})
+		console.log('13')
+		console.log(this.props.books)
+		if(nextProps){
+			console.log('first if')
+			console.log(this.props.index)
+			if(this.props.index > -1){
+				console.log('enter')
+				this.setState({arr: nextProps.books.filter(book => book.shelf === this.props.bookshelvesValues[this.props.index])})
 			}else{
-				this.setState({arr: this.props.books})
+				this.setState({arr: nextProps.books})
 			}
 		}	
 	}
+
 	render() {
   		return  (
 			<ol className="books-grid">
