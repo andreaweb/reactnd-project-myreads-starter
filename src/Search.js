@@ -16,6 +16,7 @@ export default class Search extends Component {
   /*searches books API according to query
   BooksAPI.search(this.search.value).then((results) => this.setState({results: results}))
 */
+  console.log('change is on')
   BooksAPI.search(this.state.query,30).then((books) => {
     if(!!books){
       if(books.length>0){
@@ -41,7 +42,7 @@ export default class Search extends Component {
         </div>
       </div>
       <div className="search-books-results">{/* displays books according to user query*/}
-        <Books {...this.state} onUpdate={(event, book) => this.handleInputChange()}/>
+        <Books {...this.state} />
       </div>
     </div>
    )

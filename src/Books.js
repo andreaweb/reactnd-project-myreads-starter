@@ -10,18 +10,23 @@ export class Books extends React.Component {
 	}
 
 	componentWillReceiveProps(nextProps) {
-		console.log('13')
-		console.log(this.props.books)
 		if(nextProps){
-			console.log('first if')
-			console.log(this.props.index)
 			if(this.props.index > -1){
-				console.log('enter')
 				this.setState({arr: nextProps.books.filter(book => book.shelf === this.props.bookshelvesValues[this.props.index])})
 			}else{
 				this.setState({arr: nextProps.books})
 			}
 		}	
+	}
+
+	handleShelfChange(event, book) { 
+	    //console.log(book.id, event.target.value)
+	    let shelf = event.target.value;
+	    
+	    BooksAPI.update(book, shelf).then((results) => {
+	      book.shelf = shelf;   /* updates book's shelf when there's a change in selected option */
+	      this.setState({arr:this.state.arr});
+	    })
 	}
 
 	render() {
@@ -43,7 +48,7 @@ export class Books extends React.Component {
 		                      </div>
 		                      <div className="book-shelf-changer">
 		                        <select 
-		                          onChange={(event) => this.props.onUpdate(event, book)}
+		                          onChange={(event) => this.handleShelfChange(event, book)}
 		                          value={book.shelf}>
 		                          <option value="move" disabled>Move to...</option>
 		                          <option value="currentlyReading">Currently Reading</option>
