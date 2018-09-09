@@ -1,8 +1,8 @@
 import React from 'react'
 import { Switch, Route } from 'react-router-dom'
-import BookShelves from './BookShelves'
-import Search from './Search'
-import * as BooksAPI from './BooksAPI'
+import BookShelves from './pages/BookShelves'
+import Search from './pages/Search'
+import * as BooksAPI from './api/BooksAPI'
 import './App.css'
 
 if (process.env.NODE_ENV !== 'production') {
@@ -38,7 +38,7 @@ export default class App extends React.Component {
       <div className="app">
         <Switch>{/*will display BookShelves.js or Search.js according to path in browser... this will be changed through Link in components themselves*/}
           <Route 
-            path='/'
+            path={'/'}
             exact
             render={(state)=>
               <BookShelves {...this.state} onShelfChange={(event, book)=>this.handleShelfChange(event,book)} />
@@ -50,7 +50,7 @@ export default class App extends React.Component {
               <Search {...this.state} onShelfChange={(event, book)=>this.handleShelfChange(event,book)} getBookshelves={this.getBooksData} />
             } 
           /> 
-        </Switch>
+       </Switch>
       </div>
     )
   }

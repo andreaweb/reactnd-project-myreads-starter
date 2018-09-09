@@ -1,7 +1,7 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
-import './App.css'
-import { Books } from './Books'
+import '../App.css'
+import { Books } from '../components/Books'
 
 export default class BookShelves extends React.Component {
   render() {
@@ -11,7 +11,6 @@ export default class BookShelves extends React.Component {
           <h1>MyReads</h1>
         </div>
         <div className="list-books-content">
-          <div>
            {  
             this.props.bookshelvesValues.map((name,key) => /*loops bookshelvesValues array*/
               <div className="bookshelf" key={key}>
@@ -22,8 +21,6 @@ export default class BookShelves extends React.Component {
               </div> 
             )
            }
-            
-          </div>
         </div>
         <div className="open-search">
           <Link to="/search">
