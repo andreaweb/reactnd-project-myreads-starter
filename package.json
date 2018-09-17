@@ -8,7 +8,8 @@
     "react-router": "^4.3.1",
     "react-router-dom": "^4.3.1",
     "sinon": "^6.1.5",
-    "why-did-you-update": "^0.1.1"
+    "why-did-you-update": "^0.1.1",
+    "xmlhttprequest": "^1.8.0"
   },
   "homepage": "https://andreaweb.github.io/reactnd-project-myreads-starter",
   "devDependencies": {
