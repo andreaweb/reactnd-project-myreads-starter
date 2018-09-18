@@ -4,7 +4,23 @@ import '../App.css'
 export class Books extends React.Component {
 	constructor(props){
 		super(props);
-		this.state = { arr: []}
+		this.state = { arr: [props.books]}
+	}
+
+	componentDidMount(){
+		//for test purposes only
+		if(this.props.index > -1 && this.props.books.length > 0){
+			this.filterArr()
+		}
+	}
+
+	filterArr = () =>{
+		//for test purposes only
+		this.setState({
+			arr: this.props.books.filter(
+				book => book.shelf === this.props.bookshelvesValues[this.props.index]
+			)
+		})
 	}
 
 	componentWillReceiveProps(nextProps) {

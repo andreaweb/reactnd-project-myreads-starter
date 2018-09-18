@@ -50,7 +50,7 @@ describe('BookShelves', () => {
 		    	/>
 	    	</BrowserRouter>
 		)
-		const booksRendered = wrapper.find('.books-grid')
+		const booksRendered = wrapper.find('.book')
 		expect(booksRendered).toHaveLength(totalBooks)
 	})
 })
