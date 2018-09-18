@@ -25,14 +25,12 @@ describe('API Call', () => {
 describe('BookShelves', () => {
 	test('renders 3 bookshelves', async () => {
 		const data = await BooksAPI.getAll()
-		const wrapper = await mount(
-			<BrowserRouter>
+		const wrapper = await shallow(
 				<BookShelves 
 					bookshelvesNames={['Currently Reading', 'Want To Read', 'Read']}
 				    bookshelvesValues={['currentlyReading', 'wantToRead', 'read']}
 				    books={data}
 		    	/>
-	    	</BrowserRouter>
 		)
 		const bookshelves = wrapper.find('.bookshelf')
 		expect(bookshelves).toHaveLength(3)
@@ -52,6 +50,47 @@ describe('BookShelves', () => {
 		)
 		const booksRendered = wrapper.find('.book')
 		expect(booksRendered).toHaveLength(totalBooks)
+	})
+
+	// test("removes books", async() => {
+	// 	const data = await BooksAPI.getAll()
+	// 	const totalBooks = data.length
+	// 	const wrapper = await mount(
+	// 		<BrowserRouter>
+	// 			<BookShelves 
+	// 				bookshelvesNames={['Currently Reading', 'Want To Read', 'Read']}
+	// 			    bookshelvesValues={['currentlyReading', 'wantToRead', 'read']}
+	// 			    books={data}
+	// 			    onShelfChange={(event, book)=>this.handleShelfChange(event,book)}
+	// 	    	/>
+	//     	</BrowserRouter>
+	// 	)
+	// 	const book = wrapper.find('.js-test-select').at(1);
+	// 	book.simulate('onChange', { target: { value: 'none'}});
+	// 	const newData = await BooksAPI.getAll()
+	// 	console.log(totalBooks, newData.length)
+	// })
+
+	test("responds to name change", async () => {
+	  const event = {target: {value: 'none'}};
+	  const data = await BooksAPI.getAll()
+		const totalBooks = data.length
+	  const wrap = mount(
+	    <BrowserRouter>
+			<BookShelves 
+				bookshelvesNames={['Currently Reading', 'Want To Read', 'Read']}
+			    bookshelvesValues={['currentlyReading', 'wantToRead', 'read']}
+			    books={data}
+			    onShelfChange={(event, book)=>this.handleShelfChange(event,book)}
+	    	/>
+    	</BrowserRouter>
+	  );
+	  const book = wrap.find('.js-test-select').at(1);
+//	  const bookshelf = wrap.find('.bookshelf').at(1);
+	  const handleChangeSpy = sinon.spy(book.instance(), "onChange");
+	  wrap.update(); // Force re-render
+	  book.simulate('change', event);
+	  expect(handleChangeSpy.calledOnce).to.equal(true);
 	})
 })
 

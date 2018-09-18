@@ -62,7 +62,9 @@ export class Books extends React.Component {
 	                      <div className="book-shelf-changer">
 	                        <select 
 	                          onChange={(event) => this.props.onShelfChange(event, book)}
-	                          value={book.shelf}>
+	                          value={book.shelf}
+	                          className="js-test-select"
+	                        >
 	                          <option value="move" disabled>Move to...</option>
 	                          <option value="currentlyReading">Currently Reading</option>
 	                          <option value="wantToRead">Want to Read</option>
