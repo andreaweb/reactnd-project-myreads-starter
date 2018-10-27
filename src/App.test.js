@@ -22,7 +22,7 @@ describe('API Call', () => {
 })
 
 describe('BookShelves', () => {
-	// test('renders 3 bookshelves', async () => {
+	 test('renders 3 bookshelves', async () => {
 		const data = await BooksAPI.getAll()
 		const wrapper = await shallow(
 				<BookShelves 
