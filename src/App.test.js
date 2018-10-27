@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom'
 import App from './App'
 import { Books } from './components/Books'
 import BookShelves from './pages/BookShelves'
+import Search from './pages/Search'
 import { Enzyme, configure, shallow, mount, render } from 'enzyme'
 import Adapter from 'enzyme-adapter-react-16'
 import renderer from 'react-test-renderer';
@@ -18,6 +19,21 @@ describe('API Call', () => {
 	it('gets books by default', async () => {
 		const data = await BooksAPI.getAll()
 		expect(data).not.toHaveLength(0)
+	})
+})
+
+describe('Search', () => {	
+	it("doesn't load books by default", async () => {
+		const data = await BooksAPI.getAll()
+		const wrapper = await mount(
+			<BrowserRouter>
+				<Search 
+				    books={data}
+		    	/>
+	    	</BrowserRouter>
+		)
+		const booksRendered = wrapper.find('.book')
+		expect(booksRendered).toHaveLength(0)
 	})
 })
 
@@ -72,5 +88,4 @@ describe('BookShelves', () => {
 		expect(haveBeenCalled).toBeTruthy()
 	})
 })
-
 

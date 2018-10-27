@@ -4,7 +4,7 @@ import '../App.css'
 export class Books extends React.Component {
 	constructor(props){
 		super(props);
-		this.state = { arr: [props.books]}
+		this.state = { arr: []}
 	}
 
 	componentDidMount(){
