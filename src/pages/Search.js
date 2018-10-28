@@ -13,8 +13,7 @@ export default class Search extends Component {
   this.setState({
     query: this.search.value,/*...and make it the query*/
   })
-
-  BooksAPI.search(this.state.query,30).then((books) => {
+  BooksAPI.search(this.search.value,30).then((books) => {
     if(!!books){
       if(books.length>0){
         const results = books.map((book) => {

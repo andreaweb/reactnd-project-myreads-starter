@@ -1,16 +1,16 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
-import App from './App'
-import { Books } from './components/Books'
-import BookShelves from './pages/BookShelves'
-import Search from './pages/Search'
+import App from '../App'
+import { Books } from '../components/Books'
+import BookShelves from '../pages/BookShelves'
+import Search from '../pages/Search'
 import { Enzyme, configure, shallow, mount, render } from 'enzyme'
 import Adapter from 'enzyme-adapter-react-16'
 import renderer from 'react-test-renderer';
 import { XMLHttpRequest } from 'xmlhttprequest';
 import { BrowserRouter } from 'react-router-dom'
 global.XMLHttpRequest = XMLHttpRequest;
-import * as BooksAPI from './api/BooksAPI'
+import * as BooksAPI from '../api/BooksAPI'
 import sinon from 'sinon'
 
 configure({adapter: new Adapter()});

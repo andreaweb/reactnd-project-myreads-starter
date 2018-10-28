@@ -21,4 +21,10 @@
     <li>Run <code>npm start</code></li>
 </ul>
 
+<h3>To test the application</h3>
+
+<ul>
+    <li>Run <code>npm test</code></li>
+</ul>
+
 
