@@ -10,23 +10,25 @@ export default class Search extends Component {
  }
 
  handleInputChange = () => {/*identifies every letter typed or deleted in input...*/
-  this.setState({
-    query: this.search.value,/*...and make it the query*/
-  })
-  BooksAPI.search(this.search.value,30).then((books) => {
-    if(!!books){
-      if(books.length>0){
-        const results = books.map((book) => {
-          const existingBook = this.props.books.find(
-            (b) => b.id === book.id
-          )/*existing book has its own shelf*/
-          book.shelf = !!existingBook ? existingBook.shelf : 'none'
-          return book
-        });
-        this.setState({ books: results })
-      }  
-    }
-  })
+  if(this.search.value !== this.state.query){
+    this.setState({
+      query: this.search.value,/*...and make it the query*/
+    })
+    BooksAPI.search(this.search.value,30).then((books) => {
+      if(!!books){
+        if(books.length>0){
+          const results = books.map((book) => {
+            const existingBook = this.props.books.find(
+              (b) => b.id === book.id
+            )/*existing book has its own shelf*/
+            book.shelf = !!existingBook ? existingBook.shelf : 'none'
+            return book
+          });
+          this.setState({ books: results })
+        }  
+      }
+    })
+  }
  }
 
  render() {
