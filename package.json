@@ -1,8 +1,8 @@
 {
   "dependencies": {
+    "babel-core": "^6.26.3",
     "chai": "*",
     "chai-enzyme": "^1.0.0-beta.1",
-    "prop-types": "^15.6.1",
     "react": "^16.3.2",
     "react-dom": "^16.3.2",
     "react-router": "^4.3.1",
@@ -18,8 +18,16 @@
     "enzyme-adapter-react-16": "^1.2.0",
     "gh-pages": "^1.2.0",
     "jest": "^23.5.0",
+    "prop-types": "^15.6.2",
     "react-scripts": "1.1.4",
     "react-test-renderer": "^16.4.2"
+  },
+  "jest": {
+    "collectCoverageFrom": [
+      "src/**/*.{js,jsx,mjs}",
+      "!src/index.jsx",
+      "!src/registerServiceWorker.js"
+    ]
   },
   "scripts": {
     "start": "react-scripts start",

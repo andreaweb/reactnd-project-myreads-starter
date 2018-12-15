@@ -4,16 +4,14 @@ import App from '../App'
 import { Books } from '../components/Books'
 import BookShelves from '../pages/BookShelves'
 import Search from '../pages/Search'
-import { Enzyme, configure, shallow, mount, render } from 'enzyme'
+import { Enzyme, shallow, mount } from 'enzyme'
 import Adapter from 'enzyme-adapter-react-16'
 import renderer from 'react-test-renderer';
 import { XMLHttpRequest } from 'xmlhttprequest';
 import { BrowserRouter } from 'react-router-dom'
-global.XMLHttpRequest = XMLHttpRequest;
 import * as BooksAPI from '../api/BooksAPI'
-import sinon from 'sinon'
 
-configure({adapter: new Adapter()});
+global.XMLHttpRequest = XMLHttpRequest;
 
 describe('API Call', () => {	
 	it('gets books by default', async () => {
@@ -30,7 +28,7 @@ describe('Search', () => {
 				<Search 
 				    books={data}
 		    	/>
-	    	</BrowserRouter>
+	    </BrowserRouter>
 		)
 		const booksRendered = wrapper.find('.book')
 		expect(booksRendered).toHaveLength(0)
