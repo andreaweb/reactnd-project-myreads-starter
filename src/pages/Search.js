@@ -10,7 +10,9 @@ export default class Search extends Component {
  }
 
  handleInputChange = () => {/*identifies every letter typed or deleted in input...*/
-  if(this.search.value !== this.state.query){
+    if(this.search.value === ''){
+      this.setState({books: []}) /*empty query = no results*/
+    }
     this.setState({
       query: this.search.value,/*...and make it the query*/
     })
@@ -25,10 +27,9 @@ export default class Search extends Component {
             return book
           });
           this.setState({ books: results })
-        }  
+        }
       }
     })
-  }
  }
 
  render() {
